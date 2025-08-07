@@ -42,6 +42,35 @@ pip install autofeatureselect
 | `rfe_filter`              | Wrapper  | Uses model-based recursive elimination of weakest features         |
 | `tree_importance_filter`  | Embedded | Uses tree model importance scores for feature selection            |
 | `shap_filter`             | Embedded | Uses SHAP values to rank and select top features                   |
+---
+## 📌 Functions and Their Parameters
+
+### 🔹 filters.py
+
+| Function               | Parameters                                                                 |
+|------------------------|----------------------------------------------------------------------------|
+| `correlation_filter`   | `df`, `target`, `threshold=0.9`                                            |
+| `low_variance_filter`  | `df`, `target=None`, `threshold=0.01`                                      |
+| `mutual_info_filter`   | `df`, `target`, `problem_type="classification"`, `threshold=0.01`          |
+| `vif_filter`           | `df`, `target=None`, `threshold=5.0`, `verbose=True`                       |
+
+---
+
+### 🔹 model_wrappers.py
+
+| Function               | Parameters                                                                 |
+|------------------------|----------------------------------------------------------------------------|
+| `tree_importance_filter` | `X`, `y`, `model=None`, `importance_threshold=0.01`, `top_n=None`, `verbose=True` |
+| `rfe_filter`           | `X`, `y`, `model=None`, `n_features_to_select=10`, `verbose=True`          |
+| `shap_filter`          | `X`, `y`, `model=None`, `top_n=10`, `verbose=True`                         |
+
+---
+
+### ✅ Notes
+
+- Only `tree_importance_filter` uses a threshold-like parameter, named `importance_threshold`.
+- `rfe_filter` uses `n_features_to_select` to define how many features to retain.
+- `shap_filter` uses `top_n` to keep the most impactful features based on SHAP values.
 
 
 ---
@@ -84,13 +113,13 @@ X = df.drop(columns=[target])
 y = df[target]
 
 # 5. Apply Tree-Based Feature Importance
-X = tree_importance_filter(X, y, model=RandomForestClassifier(), threshold=0.01)
+X = tree_importance_filter(X, y, model=RandomForestClassifier())
 
 # 6. Apply RFE (Recursive Feature Elimination)
-X = rfe_filter(X, y, model=RandomForestClassifier(), threshold=0.01)
+X = rfe_filter(X, y, model=RandomForestClassifier())
 
 # 7. Apply SHAP-Based Selection
-X = shap_filter(X, y, model=RandomForestClassifier(), threshold=0.01)
+X = shap_filter(X, y, model=RandomForestClassifier())
 
 # Combine X and y back
 df_selected = pd.concat([X, y], axis=1)
