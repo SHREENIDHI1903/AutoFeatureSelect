@@ -50,42 +50,54 @@ pip install autofeatureselect
 
 ```python
 import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
 from autofeatureselect.filters import (
     low_variance_filter,
     correlation_filter,
     mutual_info_filter,
     vif_filter
 )
-from autofeatureselect.wrappers import recursive_feature_elimination
-from autofeatureselect.embedded import tree_based_selector, lasso_selector
+from autofeatureselect.model_wrappers import (
+    tree_importance_filter,
+    rfe_filter,
+    shap_filter
+)
 
 # Load your dataset
 df = pd.read_csv("data.csv")
 target = "target_column"
 
 # 1. Apply Low Variance Filter
-df = low_variance_filter(df, target=target, threshold=0.01)
+df = low_variance_filter(df, threshold=0.01)
 
 # 2. Apply Correlation Filter
 df = correlation_filter(df, target=target, threshold=0.9)
 
-# 3. Apply Mutual Information Filter (classification or regression)
-df = mutual_info_filter(df, target=target, task="classification", top_k=15)
+# 3. Apply Mutual Information Filter
+df = mutual_info_filter(df, target=target, problem_type="classification", threshold=0.01)
 
-# 4. Apply VIF Filter (multicollinearity)
-df = vif_filter(df, target=target, threshold=5.0)
+# 4. Apply VIF Filter
+df = vif_filter(df, threshold=5.0)
 
-# 5. Apply Recursive Feature Elimination
-df = recursive_feature_elimination(df, target=target, task="classification", n_features_to_select=10)
+# Separate features and target for model-based methods
+X = df.drop(columns=[target])
+y = df[target]
 
-# 6. Apply Tree-Based Feature Selection
-df = tree_based_selector(df, target=target, task="classification", top_k=10)
+# 5. Apply Tree-Based Feature Importance
+X = tree_importance_filter(X, y, model=RandomForestClassifier(), threshold=0.01)
 
-# 7. Apply Lasso-Based Feature Selection
-df = lasso_selector(df, target=target, task="regression", alpha=0.01)
+# 6. Apply RFE (Recursive Feature Elimination)
+X = rfe_filter(X, y, model=RandomForestClassifier(), threshold=0.01)
 
-# The resulting df will contain only selected features + target column
-print(df.head())
+# 7. Apply SHAP-Based Selection
+X = shap_filter(X, y, model=RandomForestClassifier(), threshold=0.01)
+
+# Combine X and y back
+df_selected = pd.concat([X, y], axis=1)
+
+# Final selected features
+print(df_selected.head())
+
 ```
 
 ---
