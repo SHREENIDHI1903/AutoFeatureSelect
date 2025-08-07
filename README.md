@@ -33,15 +33,16 @@ pip install autofeatureselect
 
 `AutoFeatureSelect` provides a growing set of **feature selection tools**, including:
 
-| Method | Type | Description |
-|--------|------|-------------|
-| `low_variance_filter` | Filter | Removes features with very low variance (near-constant columns) |
-| `correlation_filter` | Filter | Drops features that are highly correlated with others |
-| `mutual_info_filter` | Filter | Selects features with high mutual information with target |
-| `vif_filter` | Filter | Removes multicollinear features using Variance Inflation Factor |
-| `recursive_feature_elimination` | Wrapper | Uses model-based recursive elimination of weakest features |
-| `tree_based_selector` | Embedded | Uses tree model importance scores for feature selection |
-| `lasso_selector` | Embedded | Uses L1 regularization to select sparse feature sets |
+| Method                    | Type     | Description                                                        |
+|---------------------------|----------|--------------------------------------------------------------------|
+| `low_variance_filter`     | Filter   | Removes features with very low variance (near-constant columns)   |
+| `correlation_filter`      | Filter   | Drops features that are highly correlated with others              |
+| `mutual_info_filter`      | Filter   | Selects features with high mutual information with target          |
+| `vif_filter`              | Filter   | Removes multicollinear features using Variance Inflation Factor    |
+| `rfe_filter`              | Wrapper  | Uses model-based recursive elimination of weakest features         |
+| `tree_importance_filter`  | Embedded | Uses tree model importance scores for feature selection            |
+| `shap_filter`             | Embedded | Uses SHAP values to rank and select top features                   |
+
 
 ---
 
@@ -91,15 +92,15 @@ print(df.head())
 
 ## 💡 When to Use Which Method?
 
-| Method | Best For | Notes |
-|--------|----------|-------|
-| `low_variance_filter` | Removing constant or near-constant columns | Fast and simple |
-| `correlation_filter` | Redundant features (highly correlated) | Pairwise comparison |
-| `mutual_info_filter` | Non-linear relevance to target | Requires `task` param |
-| `vif_filter` | Multicollinearity | Good before linear models |
-| `recursive_feature_elimination` | Model-driven selection | Slower but accurate |
-| `tree_based_selector` | Tree models (e.g. XGBoost) | Works with `RandomForest` |
-| `lasso_selector` | Linear models with sparsity | Requires `alpha` tuning |
+| Method                  | Best For                                | Notes                                     |
+|-------------------------|------------------------------------------|-------------------------------------------|
+| `low_variance_filter`   | Removing constant or near-constant columns | Fast and simple                           |
+| `correlation_filter`    | Redundant features (highly correlated)   | Pairwise comparison                        |
+| `mutual_info_filter`    | Non-linear relevance to target           | Requires `problem_type` parameter         |
+| `vif_filter`            | Multicollinearity                        | Good before linear models                 |
+| `rfe_filter`            | Model-driven selection                   | Slower but accurate                       |
+| `tree_importance_filter`| Tree models (e.g. XGBoost, RandomForest) | Uses feature importances from trees       |
+| `shap_filter`           | Global interpretability, model-agnostic | Uses SHAP values, slower but insightful   |
 
 ---
 
@@ -203,6 +204,6 @@ MIT License – use freely for personal and commercial projects.
 ## 👤 Author
 
 **Shreenidhi TH**  
-Developer of SmartSoilBuilder, passionate about building tools for applied ML and automation.
+Developer passionate about building tools for applied ML and automation.
 
 ---
