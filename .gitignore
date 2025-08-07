@@ -1,9 +1,9 @@
 
 .pytest_cache/
-
 autofeatureselect.egg-info/
 __pycache__/
 *.pyc
 *.egg-info/
 build/
 .pytest_cache/
+dist/
