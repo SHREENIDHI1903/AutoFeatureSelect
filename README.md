@@ -142,8 +142,37 @@ print(df_selected.head())
 | `rfe_filter`            | Model-driven selection                   | Slower but accurate                       |
 | `tree_importance_filter`| Tree models (e.g. XGBoost, RandomForest) | Uses feature importances from trees       |
 | `shap_filter`           | Global interpretability, model-agnostic | Uses SHAP values, slower but insightful   |
+---
+## 🔍 How to Explore Available Functions
+
+To explore the available feature selection functions and understand their parameters, you can use built-in Python tools in any Python environment (terminal, IDE, or Jupyter Notebook).
 
 ---
+
+### 📘 1. List All Functions in a Module
+
+You can list all functions within a module using `dir()`:
+
+```python
+import autofeatureselect.filters as filters
+import autofeatureselect.model_wrappers as models
+
+# List functions in the filters module
+print(dir(filters))
+
+# List functions in the model_wrappers module
+print(dir(models))
+```
+---
+### 📑 2. Get Help on a Specific Function
+Use the help() function to view the docstring of a specific function, including description, parameters, and return values:
+```python
+from autofeatureselect.filters import mutual_info_filter
+
+help(mutual_info_filter)
+```
+---
+
 
 ## 🔍 How It's Different from Other Tools
 
