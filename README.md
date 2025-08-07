@@ -191,25 +191,10 @@ Or read the source — it’s clean and readable!
 
 ---
 
-## 🛠️ Future Plans
-
-- [ ] Add support for PCA and statistical tests
-- [ ] Add logging and visual reports
-- [ ] Add command-line interface (CLI)
-- [ ] Jupyter notebook demo and interactive docs
-
----
-
 ## 🙌 Contributing
 
 Want to add your own feature selection method?  
 PRs and discussions welcome! Just follow the modular style, and document everything clearly.
-
----
-
-## 📄 License
-
-MIT License – use freely for personal and commercial projects.
 
 ---
 
@@ -219,3 +204,8 @@ MIT License – use freely for personal and commercial projects.
 Developer passionate about building tools for applied ML and automation.
 
 ---
+## License
+
+This project is licensed under the [MIT License](./LICENSE).
+
+----
