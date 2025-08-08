@@ -4,14 +4,14 @@ with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    name="autofeatureselect",
-    version="0.1.4",
+    name="smartfeatureselectml",
+    version="0.1.6",
     author="Shreenidhi T H",
-    author_email="your.email@example.com",
+    author_email="shreenidhi1903@example.com",
     description="A Python package for automated feature selection in ML workflows.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/autofeatureselect",
+    url="https://github.com/SHREENIDHI1903/AutoFeatureSelect",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

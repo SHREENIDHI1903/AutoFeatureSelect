@@ -24,7 +24,7 @@ That's where `AutoFeatureSelect` shines:
 ## 🚀 Installation
 
 ```bash
-pip install autofeatureselect
+pip install smartfeatureselectml
 ```
 
 ---
